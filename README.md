@@ -95,5 +95,32 @@ A colon-separated list of directories in which the shell looks for commands. A n
 $ echo "echo $PATH" | ./hsh
 /home/projects/.cargo/bin:/home/projects/.local/bin:/home/projects/.rbenv/plugins/ruby-build/bin:/home/projects/.rbenv/shims:/home/projects/.rbenv/bin:/home/projects/.nvm/versions/node/v10.15.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/projects/.cargo/bin:/home/projects/workflow:/home/projects/.local/bin
 ```
+### Command Execution
+After receiving a command, **hsh** tokenizes it into words using `" "` as a delimiter. The first word is considered the command and all remaining words are considered arguments to that command. **hsh** then proceeds with the following actions:
+1. If the first character of the command is neither a slash (`\\`) nor dot (`.`), the shell searches for it in the list of shell builtins. If there exists a builtin by that name, the builtin is invoked.
+2. If the first character of the command is none of a slash (`\\`), dot (`.`), nor builtin, **hsh** searches each element of the **PATH** environmental variable for a directory containing an executable file by that name
+3. If the first character of the command is a slash (`\\`) or dot (`.`) or either of the above searches was successful, the shell executes the named program with any remaining given arguments in a separate execution environment.
+### Exit Status
+**hsh** returns the exit status of the last command executed, with zero indicating success and non-zero indicating failure.
+If a command is not found, the return status is `127`; if a command is found but is not executable, the return status is 126.
+All builtins return zero on success and one or two on incorrect usage (indicated by a corresponding error message).
+### Signals
+While running in interactive mode, **hsh** ignores the keyboard input `Ctrl+c`. Alternatively, an input of end-of-file (`Ctrl+d`) will exit the program.
+User hits `Ctrl+d` in the third line.
+```
+$ ./hsh
+$ ^C
+$ ^C
+$
+```
+### Variable Replacement
+**hsh** interprets the `$` character for variable replacement.
+### $ENV_VARIABLE
+`ENV_VARIABLE` is substituted with its value.
+Example:
+```
+$ echo "echo $PWD" | ./hsh
+/home/projects/alx/simple_shell
+```
 
 
