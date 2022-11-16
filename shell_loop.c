@@ -19,6 +19,7 @@ _puts("$ ");
 _eputchar(BUF_FLUSH);
 r = get_input(info);
 if (r != -1)
+{
 set_info(info, av);
 builtin_ret = find_builtin(info);
 if (builtin_ret == -1)
