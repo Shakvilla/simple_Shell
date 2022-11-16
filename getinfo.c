@@ -1,13 +1,8 @@
-#include "shell.h"
-
-
+#include "shell.h"
 
 /**
- *
- *  * clear_info - initializes info_t struct
- *
- *   * @info: struct address
- *
+ * clear_info - initializes info_t struct
+ * @info: struct address
  */
 void clear_info(info_t *info)
 {
@@ -37,7 +32,8 @@ info->argv[0] = _strdup(info->arg);
 info->argv[1] = NULL;
 }
 }
-for (i = 0; info->argv && info->argv[i]; i++);
+for (i = 0; info->argv && info->argv[i];
+i++);
 info->argc = i;
 replace_alias(info);
 replace_vars(info);
