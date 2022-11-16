@@ -79,50 +79,24 @@ char **list_to_strings(list_t *head)
 											{
 
 														str = malloc(_strlen(node->str) + 1);
-
-																if (!str)
-
-																			{
-
-																							for (j = 0; j < i; j++)
-
-																												free(strs[j]);
-
-																										free(strs);
-
-																													return (NULL);
-
-																															}
-
-
-
-																		str = _strcpy(str, node->str);
-
-																				strs[i] = str;
-
-																					}
-
-										strs[i] = NULL;
-
-											return (strs);
-
+if (!str)
+{
+for (j = 0; j < i; j++)
+free(strs[j]);
+free(strs);
+return (NULL);
 }
-
-
-
-
-
+str = _strcpy(str, node->str);
+strs[i] = str;
+}
+strs[i] = NULL;
+return (strs);
+}
 /**
- *
- *  * print_list - prints all elements of a list_t linked list
- *
- *   * @h: pointer to first node
- *
- *    *
- *
- *     * Return: size of list
- *
- *      */
+ * print_list - prints all elements of a list_t linked list
+ * @h: pointer to first node
+ * Return: size of list
+ */
 size_t print_list(const list_t *h)
 {
 size_t i = 0;
