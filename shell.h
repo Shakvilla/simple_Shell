@@ -46,7 +46,6 @@ typedef struct liststr
 	int num;
 	char *str;
 	struct liststr *next;
-	B
 } list_t;
 
 /**
