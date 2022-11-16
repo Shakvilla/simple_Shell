@@ -124,3 +124,212 @@ $ echo "echo $PWD" | ./hsh
 ```
 
 
+### $?
+
+`?` is substitued with the return value of the last program executed.
+
+Example:
+
+```
+$ echo "echo $?" | ./hsh
+0
+
+```
+
+### $$
+
+The second `$` is substitued with the current process ID.
+
+Example:
+
+```
+$ echo "echo $$" | ./hsh
+6494
+
+```
+
+### Comments
+
+**hsh** ignores all words and characters preceeded by a `#` character on a line.
+
+Example:
+
+```
+$ echo "echo 'hello' #this will be ignored!" | ./hsh
+'hello'
+
+```
+
+### Operators
+
+**hsh** specially interprets the following operator characters:
+
+### ; - Command separator
+
+Commands separated by a `;` are executed sequentially.
+
+Example:
+
+```
+$ echo "echo 'hello' ; echo 'world'" | ./hsh
+'hello'
+'world'
+
+```
+
+### && - AND logical operator
+
+`command1 && command2`: `command2` is executed if, and only if, `command1` returns an exit status of zero.
+
+Example:
+
+```
+$ echo "error! && echo 'hello'" | ./hsh
+./hsh: 1: error!: not found
+$ echo "echo 'all good' && echo 'hello'" | ./hsh
+'all good'
+'hello'
+
+```
+
+### || - OR logical operator
+
+`command1 || command2`: `command2` is executed if, and only if, `command1` returns a non-zero exit status.
+
+Example:
+
+```
+$ echo "error! || echo 'but still runs'" | ./hsh
+./hsh: 1: error!: not found
+'but still runs'
+
+```
+
+The operators `&&` and `||` have equal precedence, followed by `;`.
+
+### hsh Builtin Commands
+
+### cd
+
+- Usage: `cd [DIRECTORY]`
+- Changes the current directory of the process to `DIRECTORY`.
+- If no argument is given, the command is interpreted as `cd $HOME`.
+- If the argument `` is given, the command is interpreted as `cd $OLDPWD` and the pathname of the new working directory is printed to standad output.
+- If the argument, `-` is given, the command is interpreted as `cd $OLDPWD` but the pathname of the new working directory is not printed.
+- The environment variables `PWD` and `OLDPWD` are updated after a change of directory.
+
+Example:
+
+```
+$ ./hsh
+$ pwd
+/home/projects/alx/simple_shell
+$ cd ../
+$ pwd
+/home/projects/alx
+$ cd -
+$ pwd
+/home/projects/alx/simple_shell
+
+```
+
+### alias
+
+- Usage: `alias [NAME[='VALUE'] ...]`
+- Handles aliases.
+- `alias`: Prints a list of all aliases, one per line, in the form `NAME='VALUE'`.
+- `alias NAME [NAME2 ...]`: Prints the aliases `NAME`, `NAME2`, etc. one per line, in the form `NAME='VALUE'`.
+- `alias NAME='VALUE' [...]`: Defines an alias for each `NAME` whose `VALUE` is given. If `name` is already an alias, its value is replaced with `VALUE`.
+
+Example:
+
+```
+$ ./hsh
+$ alias show=ls
+$ show
+AUTHORS            builtins_help_2.c  errors.c         linkedlist.c        shell.h       test
+README.md          env_builtins.c     getline.c        locate.c            hsh
+alias_builtins.c   environ.c          helper.c         main.c              split.c
+builtin.c          err_msgs1.c        helpers_2.c      man_1_simple_shell  str_funcs1.c
+builtins_help_1.c  err_msgs2.c        input_helpers.c  proc_file_comm.c    str_funcs2.c
+
+```
+
+### exit
+
+- Usage: `exit [STATUS]`
+- Exits the shell.
+- The `STATUS` argument is the integer used to exit the shell.
+- If no argument is given, the command is interpreted as `exit 0`.
+
+Example:
+
+```
+$ ./hsh
+$ exit
+
+```
+
+### env
+
+- Usage: `env`
+- Prints the current environment.
+
+Example:
+
+```
+$ ./hsh
+$ env
+NVM_DIR=/home/projects/.nvm
+...
+
+```
+
+### setenv
+
+- Usage: `setenv [VARIABLE] [VALUE]`
+- Initializes a new environment variable, or modifies an existing one.
+- Upon failure, prints a message to `stderr`.
+
+Example:
+
+```
+$ ./hsh
+$ setenv NAME Poppy
+$ echo $NAME
+Poppy
+
+```
+
+### unsetenv
+
+- Usage: `unsetenv [VARIABLE]`
+- Removes an environmental variable.
+- Upon failure, prints a message to `stderr`.
+
+Example:
+
+```
+$ ./hsh
+$ setenv NAME Poppy
+$ unsetenv NAME
+$ echo $NAME
+
+$
+
+```
+
+### What we learned:
+
+- How a shell works and finds commands
+- Creating, forking and working with processes
+- Executing a program from another program
+- Handling dynamic memory allocation in a large program
+- Pair programming and team work
+- Building a test suite to check our own code
+
+## Authors
+
+👤 **Abdul Abdul Shekur**
+
+👤 **Wobyoona Peter**
