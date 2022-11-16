@@ -330,6 +330,6 @@ $
 
 ## Authors
 
-👤 **Abdul Shakur A Clement**
+👤 **Abdul Abdul Shekur**
 
 👤 **Wobyoona Peter**
